@@ -1,7 +1,6 @@
 package com.objis.spring.demodatabase.dao;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,16 +34,16 @@ public class EmployeDao implements IEmployeDao
 	@PostConstruct
 	public void onInit()
 	{
-		logger.info("Bean employeDao créé");
+		logger.info("Bean employeDao crÃ©Ã©");
 	}
 
 	@PreDestroy
 	public void onDestroy()
 	{
-		logger.info("Bean employeDao supprimé");
+		logger.info("Bean employeDao supprimÃ©");
 	}
 
-	// Récupère certains champs de Employe dépendant du EmployeRowMapper défini dans
+	// RÃ©cupÃ¨re certains champs de Employe dÃ©pendant du EmployeRowMapper dÃ©fini dans
 	// domaine
 	public Employe getPartialEmployeById(int id)
 	{
@@ -55,7 +54,7 @@ public class EmployeDao implements IEmployeDao
 		return employe;
 	}
 
-	// Récupère tous les champs de Employe
+	// RÃ©cupÃ¨re tous les champs de Employe
 	public Employe getEmployeById(int id)
 	{
 		final String EMPLOYE_GET = "SELECT * FROM employe WHERE id=?";
@@ -75,7 +74,7 @@ public class EmployeDao implements IEmployeDao
 	{
 		final String EMPLOYE_INSERT = "INSERT INTO Employe (id, login, password, prenom, nom, email, role) values (?,?,?,?,?,?,?)";
 
-		// On récupère et on utilise directement le jdbcTemplate
+		// On rÃ©cupÃ¨re et on utilise directement le jdbcTemplate
 		jdbcTemplate.update(EMPLOYE_INSERT, new Object[]
 		{ employe.getId(), employe.getLogin(), employe.getPassword(), employe.getPrenom(), employe.getNom(),
 				employe.getEmail(), employe.getRole() });
@@ -90,16 +89,13 @@ public class EmployeDao implements IEmployeDao
 		return total;
 	}
 
-	public List<Employe> getAllEmployes()
+	public Collection<Employe> getAllEmployes()
 	{
 		final String EMPLOYE_GET = "SELECT * FROM employe";
 
-		List<Employe> listeEmployes = new ArrayList<Employe>();
+		Collection<Employe> listeEmployes = null;
 				
 		listeEmployes = jdbcTemplate.query(EMPLOYE_GET, new BeanPropertyRowMapper<Employe>(Employe.class)) ;
 		return listeEmployes;
 	}
-
-	
-
 }

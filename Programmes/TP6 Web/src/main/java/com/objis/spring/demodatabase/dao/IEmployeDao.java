@@ -1,6 +1,6 @@
 package com.objis.spring.demodatabase.dao;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.objis.spring.demodatabase.domaine.Employe;
 
@@ -16,5 +16,5 @@ public interface IEmployeDao
 
 	public int getEmployesCount();
 
-	public List<Employe> getAllEmployes();
+	public Collection<Employe> getAllEmployes();
 }

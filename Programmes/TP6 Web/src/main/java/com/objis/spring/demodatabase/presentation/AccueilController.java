@@ -1,8 +1,12 @@
 package com.objis.spring.demodatabase.presentation;
 
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.objis.spring.demodatabase.service.IEmployeService;
+import com.objis.spring.demodatabase.domaine.Employe;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -47,7 +53,17 @@ public class AccueilController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "accueil";
+	}
+	
+	@RequestMapping({"/listeEmployes","employesObjis"})
+	protected ModelAndView listeEmployes(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		//Récupère la liste de tous les employés
+		Collection<Employe> listeEmployes = employeService.getAllEmployes();
+
+		// Retour le modèle et la vue
+		return new ModelAndView("accueil", "employes", listeEmployes);
 	}
 	
 }

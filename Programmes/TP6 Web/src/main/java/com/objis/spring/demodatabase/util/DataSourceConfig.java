@@ -27,9 +27,7 @@ public class DataSourceConfig
 	@Value("${db.driver}")
 	private String driverClassName;
 
-	/*
-	 * Bean de type DataSource Utilisé pour l'autowire (byType) avec EmployeDao
-	 */
+	/* Bean de type DataSource Utilisé pour l'autowire (byType) avec EmployeDao */
 	@Bean
 	public DataSource dataSource()
 	{
@@ -42,12 +40,14 @@ public class DataSourceConfig
 		return dataSource;
 	}
 
+	/* Création du PPC */
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer()
 	{
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
+	/* Pour l'injection de JdbcTemplate dans le DAO */
 	@Bean
 	public static JdbcTemplate getJdbcTemplate(DataSource dataSource)
 	{

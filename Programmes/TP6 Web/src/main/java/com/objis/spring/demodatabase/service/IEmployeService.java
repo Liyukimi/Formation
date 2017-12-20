@@ -1,5 +1,6 @@
 package com.objis.spring.demodatabase.service;
 
+import java.util.Collection;
 import java.util.List;
 
 
@@ -20,7 +21,7 @@ public interface IEmployeService {
 
 	public int getEmployesCount();
 	
-	public List<Employe> getAllEmployes();
+	public Collection<Employe> getAllEmployes();
 	
 	public void onInit();
 

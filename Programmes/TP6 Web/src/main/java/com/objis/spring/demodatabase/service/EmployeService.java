@@ -1,5 +1,6 @@
 package com.objis.spring.demodatabase.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -16,17 +17,17 @@ import com.objis.spring.demodatabase.domaine.Employe;
 
 
 @Service("employeService")
-public class EmployeService
+public class EmployeService implements IEmployeService
 {
 	private static final Logger logger = LogManager.getLogger(EmployeService.class);
 	/*
-	 * indique que l'attribut employeDao est 'auto câblé' => va chercher selon le
+	 * indique que l'attribut employeDao est 'auto cÃ¢blÃ©' => va chercher selon le
 	 * type de autowire (byName/byType) un bean qui correspond (ici dans la classe
-	 * EmployeDao annoté par @Repository("employeDao")
+	 * EmployeDao annotÃ© par @Repository("employeDao")
 	 * 
-	 * Si conflit d'autowire avec byType car plusieurs implémentations de
-	 * IEmployeDao on peut rajouter @Qualifier("idBean") où "idBean" est l'id du
-	 * bean que l'on souhaite câbler
+	 * Si conflit d'autowire avec byType car plusieurs implï¿½mentations de
+	 * IEmployeDao on peut rajouter @Qualifier("idBean") oÃ¹ "idBean" est l'id du
+	 * bean que l'on souhaite cÃ¢bler
 	 */
 	@Autowired
 	@Qualifier("employeDao")
@@ -37,6 +38,7 @@ public class EmployeService
 		return employeDao;
 	}
 
+	
 	public void setEmployeDao(IEmployeDao employeDao)
 	{
 		this.employeDao = employeDao;
@@ -47,6 +49,7 @@ public class EmployeService
 		return employeDao.getEmployeById(id);
 	}
 
+	
 	public Employe getPartialEmployeById(int id)
 	{
 		return employeDao.getPartialEmployeById(id);
@@ -68,7 +71,7 @@ public class EmployeService
 		return employeDao.getEmployesCount();
 	}
 
-	public List<Employe> getAllEmployes()
+	public Collection<Employe> getAllEmployes()
 	{
 		return employeDao.getAllEmployes();
 	}
@@ -76,12 +79,12 @@ public class EmployeService
 	@PostConstruct
 	public void onInit()
 	{
-		logger.info("Bean employeDao créé");
+		logger.info("Bean employeDao crÃ©Ã©");
 	}
 
 	@PreDestroy
 	public void onDestroy()
 	{
-		logger.info("Bean employeDao supprimé");
+		logger.info("Bean employeDao supprimÃ©");
 	}
 }
