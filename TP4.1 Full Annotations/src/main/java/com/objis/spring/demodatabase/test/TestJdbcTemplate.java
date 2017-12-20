@@ -5,9 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.objis.spring.demodatabase.dao.EmployeDao;
+import com.objis.spring.demodatabase.dao.IEmployeDao;
 
 import com.objis.spring.demodatabase.domaine.Employe;
 import com.objis.spring.demodatabase.service.EmployeService;
@@ -18,23 +21,28 @@ import org.apache.logging.log4j.LogManager;
 public class TestJdbcTemplate
 {
 	Employe emp;
-	private EmployeDao dao;
-	private EmployeService service;
 
 	private static final Logger logger = LogManager.getLogger(TestJdbcTemplate.class);
+	private AnnotationConfigApplicationContext appContext;
+	private IEmployeDao dao;
+	private EmployeService service;
 
 	@Before
 	public void setUpJdbcTemplate() throws Exception
 	{
-		ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext("spring-all-modules.xml");
-
-		dao = (EmployeDao) appContext.getBean("employeDao");
+		/*
+		 * Charge l'application context du projet recherche les beans dans les packages
+		 * donnés en paramètre
+		 */
+		appContext = new AnnotationConfigApplicationContext("com.objis.spring.demodatabase");
 		service = (EmployeService) appContext.getBean("employeService");
+		dao = (IEmployeDao) appContext.getBean("employeDao");
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
+		appContext.close();
 		emp = null;
 	}
 
@@ -72,4 +80,5 @@ public class TestJdbcTemplate
 		logger.info("SERVICE BEAN : Employe " + employe.toString());
 		assertNotNull(employe);
 	}
+
 }

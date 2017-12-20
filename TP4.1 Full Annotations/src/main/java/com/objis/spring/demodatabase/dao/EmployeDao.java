@@ -2,6 +2,10 @@ package com.objis.spring.demodatabase.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,17 +14,34 @@ import org.springframework.stereotype.Repository;
 import com.objis.spring.demodatabase.domaine.Employe;
 import com.objis.spring.demodatabase.domaine.EmployeRowMapper;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /* indique l'id du bean */
 @Repository("employeDao")
 public class EmployeDao implements IEmployeDao
 {
 
-	/* Injection d'un JdbcTemplate, classe fournie par SpringFramework */	
+	private static final Logger logger = LogManager.getLogger(EmployeDao.class);
+
 	private JdbcTemplate jdbcTemplate;
 
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) // important pour l'injection
+	@Autowired
+	public void setDatasource(DataSource datasource)
 	{
-		this.jdbcTemplate = jdbcTemplate;
+		this.jdbcTemplate = new JdbcTemplate(datasource);
+	}
+
+	@PostConstruct
+	public void onInit()
+	{
+		logger.info("Bean employeDao créé");
+	}
+
+	@PreDestroy
+	public void onDestroy()
+	{
+		logger.info("Bean employeDao supprimé");
 	}
 
 	// Récupère certains champs de Employe dépendant du EmployeRowMapper défini dans
@@ -62,11 +83,13 @@ public class EmployeDao implements IEmployeDao
 
 	public int getEmployesCount()
 	{
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	public List<Employe> getAllEmployes()
 	{
+		// TODO Auto-generated method stub
 		return null;
 	}
 

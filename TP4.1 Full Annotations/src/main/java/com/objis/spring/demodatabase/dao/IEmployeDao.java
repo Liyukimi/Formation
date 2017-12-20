@@ -8,6 +8,8 @@ public interface IEmployeDao
 {
 	public Employe getEmployeById(int id);
 
+	public Employe getPartialEmployeById(int id);
+
 	public Employe getEmployeByLogin(String login);
 
 	public void saveEmploye(Employe employe);
