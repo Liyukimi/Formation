@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: Web
+Implementation-Version: 1.0.0-BUILD-SNAPSHOT
+Built-By: adminl
+Implementation-Vendor-Id: com.objis
+Build-Jdk: 1.8.0_144
+Implementation-URL: http://projects.spring.io/spring-boot/demospringwe
+ b/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
