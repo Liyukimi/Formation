@@ -59,13 +59,13 @@ public class AccueilController {
 	/**
 	 * Envoie vers la vue listeEmploye.jsp avec la liste de tous les employes
 	 */
-	@RequestMapping({ "/listeEmployes", "employesObjis" })
+	@RequestMapping(value = { "/listeEmployes", "employesObjis" }, method = RequestMethod.GET)
 	protected ModelAndView listeEmployes(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// Récupère la liste de tous les employés
 		Collection<Employe> listeEmployes = employeService.getAllEmployes();
 
-		// Retour le modèle et la vue
+		// Retour le modèle et la vue (nomVue, nomObjetRetour, objetRetour)
 		return new ModelAndView("listeEmployes", "listeEmployes", listeEmployes);
 	}
 
