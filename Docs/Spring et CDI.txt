@@ -1,0 +1,16 @@
+SPRING ET CDI
+
+CDI est un standard
+Les annotations vues dans Spring sont dépendante du Spring framework
+Spring est un conteneur léger mais il en existe d'autres qui respectent CDI également. 
+Weld implémentation de référence de CDI qui est aussi un conteneur léger > intégré dans les serveurs certifiés
+
+
+Spring
+
+@Repository("")	>	@Named("")	
+@Service("")	>	@Named("")
+@Repository("")	>	@Named("")
+@Controller("")	>	@Named("")
+
+@Autowired		>	@Inject (l'injection ne se fait pas par setter)

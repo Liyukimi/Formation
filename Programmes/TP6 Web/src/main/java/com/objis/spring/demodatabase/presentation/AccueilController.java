@@ -23,47 +23,69 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 /**
- * Handles requests for the application home page.
+ * Récupère toutes les requêtes (url-pattern ="/")
  */
 @Controller
 public class AccueilController {
-	
+
 	private static final Logger logger = LogManager.getLogger(AccueilController.class);
-	
+
+	/* injection de la couche service */
 	@Autowired
 	@Qualifier("employeService")
 	private IEmployeService employeService;
-	
+
 	public void setEmployeService(IEmployeService employeService) {
 		this.employeService = employeService;
 	}
 
-
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Renvoie vers la vue home.jsp
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
+
 		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "accueil";
+
+		model.addAttribute("serverTime", formattedDate);
+
+		return "home";
 	}
-	
-	@RequestMapping({"/listeEmployes","employesObjis"})
+
+	/**
+	 * Envoie vers la vue listeEmploye.jsp avec la liste de tous les employes
+	 */
+	@RequestMapping(value = { "/listeEmployes", "employesObjis" }, method = RequestMethod.GET)
 	protected ModelAndView listeEmployes(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		//Récupère la liste de tous les employés
+
+		// Récupère la liste de tous les employés
 		Collection<Employe> listeEmployes = employeService.getAllEmployes();
 
-		// Retour le modèle et la vue
-		return new ModelAndView("accueil", "employes", listeEmployes);
+		// Retour le modèle et la vue (nomVue, nomObjetRetour, objetRetour)
+		return new ModelAndView("listeEmployes", "listeEmployes", listeEmployes);
 	}
-	
+
+	/**
+	 * Envoie vers la vue detailEmploye.jsp et l'enmployé dont il récupère l'id via
+	 * formulaire
+	 */
+	@RequestMapping(value = "/detailEmploye", method = RequestMethod.POST)
+	protected ModelAndView detailEmploye(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// Récupère l'info id du formulaire
+		int id = 0;
+		if (request.getParameter("idSelect") != null) {
+			id = Integer.parseInt(request.getParameter("idSelect"));
+		}
+
+		// Récupère un employé par son id
+		Employe employe = employeService.getEmployeById(id);
+
+		// Retour le modèle et la vue
+		return new ModelAndView("detailEmploye", "employe", employe);
+	}
+
 }
