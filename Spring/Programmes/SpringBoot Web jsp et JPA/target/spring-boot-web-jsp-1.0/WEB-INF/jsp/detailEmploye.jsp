@@ -16,7 +16,7 @@
 	</ul>	
 	
 	
-	<a href="http://www.objis.com"><img src="resources/logo_objis.png" border=0></a>
+	<a href="http://www.objis.com"><img src="/logo_objis.png" border=0></a>
 
 </body>
 </html>	

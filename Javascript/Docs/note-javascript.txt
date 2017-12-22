@@ -1,0 +1,12 @@
+java = langage compilé
+javascript = langage interprêté
+
+Javascript s'exécute côté client (dans le navigateur, exception faite de Node.js) à la différence de Java qui est côté serveur
+
+Le navigateur lit les pages de manière séquentielles selon les infos dont ont besoin les javascript on les place soit :
+	- dans la balise <head>
+	- dans le footer
+	
+1- DOM spécification qui permet de manipuler un arbre pour modifier la structure de la page
+2- EVENT identifier un type d'évenement (click, double-click, mouse-hover...)
+3- Gestionnaire d'énvenement : brancher l'event et exécuter du code en conséquence

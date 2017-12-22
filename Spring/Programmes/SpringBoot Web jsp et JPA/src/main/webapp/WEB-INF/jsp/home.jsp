@@ -11,10 +11,11 @@
 
 <P>  Nous sommes le ${serverTime}. </P>
 
+<P><a href="/welcome">Page avec du CSS</a></P>
 <P><a href="/listeEmployes">Liste des employés Objis</a></P>
 
 
-<a href="http://www.objis.com"><img src="resources/static/logo_objis.png" border=0></a>
+<a href="http://www.objis.com"><img src="/logo_objis.png" border=0></a>
 
 </body>
 </html>

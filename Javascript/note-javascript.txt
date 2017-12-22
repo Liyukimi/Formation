@@ -1,8 +1,0 @@
-java = langage compilé
-javascript = langage interprêté
-
-Javascript s'exécute côté client (dans le navigateur)  à la différence de Java qui est côté serveur (exception faite de Node.js)
-
-Le navigateur lit les pages de manière séquentielles selon les infos dont ont besoin les javascript on les place soit :
-	- dans la balise <head>
-	- dans le footer
