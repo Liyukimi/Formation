@@ -10,3 +10,25 @@ Le navigateur lit les pages de manière séquentielles selon les infos dont ont 
 1- DOM spécification qui permet de manipuler un arbre pour modifier la structure de la page
 2- EVENT identifier un type d'évenement (click, double-click, mouse-hover...)
 3- Gestionnaire d'énvenement : brancher l'event et exécuter du code en conséquence
+
+Interagir avec l'utilisateur
+var userName = prompt('Entrez votre prénom :');
+alert(userName); // Affiche le prénom entré par l'utilisateur
+
+Convertir une chaîne de caractères en nombre
+var first, second, result;
+first = prompt('Entrez le premier chiffre :');
+second = prompt('Entrez le second chiffre :');
+result = parseInt(first) + parseInt(second);
+alert(result);
+
+Convertir un nombre en chaîne de caractères
+var text, number1 = 4, number2 = 2;
+text = number1 + '' + number2;
+alert(text); // Affiche : « 42 »
+
+
+window.onload = function()
+window > objet implicite
+onload > event
+= function > branchement : associe une fonction
