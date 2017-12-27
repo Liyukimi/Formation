@@ -1,13 +1,21 @@
 package com.objis.spring.demodatabase.domaine;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 /**
@@ -18,8 +26,7 @@ import javax.validation.constraints.Size;
  * <p>
  */
 @Entity
-public class Compte implements Serializable
-{
+public class Compte implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -48,12 +55,11 @@ public class Compte implements Serializable
 	private Collection<Virement> listeDebit;
 
 	// Constructor
-	public Compte()
-	{
+	public Compte() {
 	}
 
-	public Compte(int numeroCompte, double solde, Date dateOuverture, String typeCompte, double decouvert, double taux)
-	{
+	public Compte(int numeroCompte, double solde, Date dateOuverture, String typeCompte, double decouvert,
+			double taux) {
 		super();
 		this.numeroCompte = numeroCompte;
 		this.solde = solde;
@@ -63,127 +69,102 @@ public class Compte implements Serializable
 		this.taux = taux;
 	}
 
-	public Compte(int numeroCompte, double solde, Date dateOuverture, String typeCompte, double compteProperty)
-	{
+	public Compte(int numeroCompte, double solde, Date dateOuverture, String typeCompte, double compteProperty) {
 		super();
 		this.numeroCompte = numeroCompte;
 		this.solde = solde;
 		this.dateOuverture = dateOuverture;
 		this.typeCompte = typeCompte;
-		if (typeCompte.equals("courant"))
-		{
+		if (typeCompte.equals("courant")) {
 			this.decouvert = compteProperty;
 			this.taux = 0;
-		}
-		else if (typeCompte.equals("epargne"))
-		{
+		} else if (typeCompte.equals("epargne")) {
 			this.taux = compteProperty;
 			this.decouvert = 0;
 		}
 	}
 
-	public Compte(int numeroCompte)
-	{
+	public Compte(int numeroCompte) {
 		super();
 		this.numeroCompte = numeroCompte;
 	}
 
-	public Collection<Virement> getListeCredit()
-	{
+	public Collection<Virement> getListeCredit() {
 		return listeCredit;
 	}
 
-	public void setListeCredit(Collection<Virement> listeCredit)
-	{
+	public void setListeCredit(Collection<Virement> listeCredit) {
 		this.listeCredit = listeCredit;
 	}
 
-	public Collection<Virement> getListeDebit()
-	{
+	public Collection<Virement> getListeDebit() {
 		return listeDebit;
 	}
 
-	public void setListeDebit(Collection<Virement> listeDebit)
-	{
+	public void setListeDebit(Collection<Virement> listeDebit) {
 		this.listeDebit = listeDebit;
 	}
 
-	public int getNumeroCompte()
-	{
+	public int getNumeroCompte() {
 		return numeroCompte;
 	}
 
-	public void setNumeroCompte(int numeroCompte)
-	{
+	public void setNumeroCompte(int numeroCompte) {
 		this.numeroCompte = numeroCompte;
 	}
 
-	public double getSolde()
-	{
+	public double getSolde() {
 		return solde;
 	}
 
-	public void setSolde(double solde)
-	{
+	public void setSolde(double solde) {
 		this.solde = solde;
 	}
 
-	public Date getDateOuverture()
-	{
+	public Date getDateOuverture() {
 		return dateOuverture;
 	}
 
-	public void setDateOuverture(Date dateOuverture)
-	{
+	public void setDateOuverture(Date dateOuverture) {
 		this.dateOuverture = dateOuverture;
 	}
 
-	public String getTypeCompte()
-	{
+	public String getTypeCompte() {
 		return typeCompte;
 	}
 
-	public void setTypeCompte(String typeCompte)
-	{
+	public void setTypeCompte(String typeCompte) {
 		this.typeCompte = typeCompte;
 	}
 
-	public double getDecouvert()
-	{
+	public double getDecouvert() {
 		return decouvert;
 	}
 
-	public void setDecouvert(double decouvert)
-	{
+	public void setDecouvert(double decouvert) {
 		this.decouvert = decouvert;
 	}
 
-	public double getTaux()
-	{
+	public double getTaux() {
 		return taux;
 	}
 
-	public void setTaux(double taux)
-	{
+	public void setTaux(double taux) {
 		this.taux = taux;
 	}
 
-	public Client getClient()
-	{
+	public Client getClient() {
 		return client;
 	}
 
-	public void setClient(Client client)
-	{
+	public void setClient(Client client) {
 		this.client = client;
 	}
 
 	@Override
-	public boolean equals(Object object)
-	{
+	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Compte))
-		{
+		if (!(object instanceof Compte)) {
 			return false;
 		}
 		Compte other = (Compte) object;
@@ -191,8 +172,7 @@ public class Compte implements Serializable
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "fr.gtm.formation.proxibanque.domaine.Compte[ numeroCompte=" + numeroCompte + " ]";
 	}
 
