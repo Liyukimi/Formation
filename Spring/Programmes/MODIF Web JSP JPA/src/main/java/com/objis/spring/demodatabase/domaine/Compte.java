@@ -31,7 +31,7 @@ public class Compte implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name = "generatorCompte", sequenceName = "seq_compte", allocationSize = 1)
+	@SequenceGenerator(name = "generatorCompte", sequenceName = "seq_compte", initialValue = 1000, allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "generatorCompte")
 	@Column(name = "NUMERO_COMPTE", updatable = false, nullable = false)
 	private int numeroCompte;

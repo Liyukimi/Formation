@@ -42,18 +42,17 @@ public class ConseillerServices implements IConseillerServices {
 
 		try {
 			Conseiller conseillerBD = conseillerDao.findByLogin(login);
+			if (conseillerBD != null) {
 
-			passwordRecup = conseillerBD.getPassword();
-			passwordGiven = conseiller.getPassword();
+				passwordRecup = conseillerBD.getPassword();
+				passwordGiven = conseiller.getPassword();
 
-			if (passwordRecup != null & passwordRecup.equals(passwordGiven)) {
-				return true;
-			} else {
-				return false;
+				if (passwordRecup != null & passwordRecup.equals(passwordGiven)) {
+					return true;
+				} else {
+					return false;
+				}
 			}
-		} catch (EmptyResultDataAccessException | NoResultException e) {
-			Logger.getLogger(ConseillerServices.class.getName()).log(Level.WARN,
-					"Il n'existe pas de conseiller dont le login est " + login, e);
 		} catch (DataAccessException e) {
 			Logger.getLogger(ConseillerServices.class.getName()).log(Level.ERROR,
 					"Erreur lors de l'exécution " + e.getMostSpecificCause(), e);

@@ -6,11 +6,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.objis.spring.demodatabase.domaine.Client;
 import com.objis.spring.demodatabase.domaine.Conseiller;
@@ -22,23 +24,21 @@ public class LoginController {
 
 	@Autowired
 	private IConseillerServices conseillerServices;
-	
+
 	@Autowired
 	private IClientServices clientServices;
-	
+
 	@RequestMapping("/")
 	public String login(Model model) {
 		return "login";
 	}
-	
+
 	@RequestMapping(value = "/ConnexionConseiller", method = RequestMethod.POST)
-	protected String connexionConseiller(HttpServletRequest request, HttpServletResponse response, Model model)
-	{
+	protected ModelAndView connexionConseiller(HttpServletRequest request, HttpServletResponse response, Model model) {
 
 		// Delete previous session info
 		HttpSession oldSession = request.getSession(false);
-		if (oldSession != null)
-		{
+		if (oldSession != null) {
 			oldSession.invalidate();
 		}
 
@@ -49,39 +49,32 @@ public class LoginController {
 		// Step 2 : send request parameters to services package
 		Conseiller conseiller = new Conseiller(loginServ, passwordServ);
 
-		if (conseillerServices.conseillerConnection(conseiller) == true)
-		{
+		if (conseillerServices.conseillerConnection(conseiller) == true) {
 			conseiller = conseillerServices.getConseillerByLogin(loginServ);
-			if(conseiller == null)
-			{
-				model.addAttribute("error", "Aucun conseiller ayant pour login "+loginServ);
-				return("login");
-			}
-			else
-			{
+			if (conseiller == null) {
+				model.addAttribute("error", "Aucun conseiller ayant pour login " + loginServ);
+				return new ModelAndView("login");
+			} else {
 				model.addAttribute("conseiller", conseiller);
 				Collection<Client> listeClients = clientServices.getClientsByConseiller(conseiller.getLogin());
+				Logger.getLogger(LoginController.class).warn("La liste est : " + listeClients);
 				model.addAttribute("listeClients", listeClients);
 			}
-			return ("index");
-		}
-		else
-		{
+			return new ModelAndView("index");
+		} else {
 			model.addAttribute("error", "Les informations de connexion fournies ne sont pas valides.");
-			return("login");
+			return new ModelAndView("login");
 		}
 	}
-	
+
 	@RequestMapping(value = "/DeconnexionConseiller")
-	protected String deconnexionConseiller(HttpServletRequest request, HttpServletResponse response, Model model)
-	{
+	protected String deconnexionConseiller(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// Delete previous session info if exist
 		HttpSession oldSession = request.getSession(false);
-		if (oldSession != null)
-		{
+		if (oldSession != null) {
 			oldSession.invalidate();
 		}
-		return("login");
+		return ("login");
 	}
 
 }

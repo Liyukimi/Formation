@@ -33,9 +33,9 @@
 							<div class="col-xs-9 text-right">
 								<div class="huge">Bonjour !</div>
 								<div>
-									<strong>Nom :</strong> <c:out value="${conseiller.nom}"/>
-									<strong>Prénom :</strong> <c:out value="${conseiller.prenom}"/>
-									<strong>Login :</strong> <c:out value="${conseiller.login}" />											
+									<strong>Nom :</strong> ${conseiller.nom}
+									<strong>Prénom :</strong> ${conseiller.prenom}
+									<strong>Login :</strong> ${conseiller.login}											
 								</div>
 							</div>
 						</div>
