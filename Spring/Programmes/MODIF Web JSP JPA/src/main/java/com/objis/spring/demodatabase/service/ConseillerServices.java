@@ -1,7 +1,12 @@
 package com.objis.spring.demodatabase.service;
 
 
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.objis.spring.demodatabase.dao.IConseillerDao;
@@ -33,27 +38,38 @@ public class ConseillerServices implements IConseillerServices
 	public boolean conseillerConnection(Conseiller conseiller)
 	{
 
-		String passwordServeur;
-		String passwordDao;
+		String passwordGiven;
+		String passwordRecup;
 		String login = conseiller.getLogin();
 		
-		Conseiller conseillerBD = conseillerDao.findByLogin(login);
+		try
+		{
+			Conseiller conseillerBD = conseillerDao.findByLogin(login);
+		
+			passwordRecup = conseillerBD.getPassword();
+			passwordGiven = conseiller.getPassword();
 
-			if (conseillerBD != null)
+			Logger.getLogger(getClass()).info("login " +login+ "\npassword " +passwordGiven);
+			Logger.getLogger(getClass()).info("passwordRecup " + passwordRecup);
+			
+			if (passwordRecup != null & passwordRecup.equals(passwordGiven))
 			{
-				passwordDao = conseillerBD.getPassword();
-				passwordServeur = conseiller.getPassword();
-
-				if (passwordDao != null && passwordDao.equals(passwordServeur))
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+				return true;
 			}
-			return false;
+			else
+			{
+				return false;
+			}
+		}
+		catch(EmptyResultDataAccessException e)
+		{
+			Logger.getLogger(ConseillerServices.class.getName()).log(Level.WARN, "Il n'existe pas de conseiller dont le login est " +login, e);
+		} 
+		catch (DataAccessException e) {
+			Logger.getLogger(ConseillerServices.class.getName()).log(Level.ERROR, "Erreur lors de l'exécution " +e.getMostSpecificCause(), e);
+		}
+		
+		return false;
 
 	}
 
@@ -69,7 +85,18 @@ public class ConseillerServices implements IConseillerServices
 	 */
 	public Conseiller getConseillerByLogin(String login) 
 	{
-		return conseillerDao.findByLogin(login);
-		
+		try 
+		{
+			return conseillerDao.findByLogin(login);			
+		}
+		catch(EmptyResultDataAccessException e)
+		{
+			Logger.getLogger(ConseillerServices.class.getName()).log(Level.WARN, "Il n'existe pas de conseiller dont le login est " +login, e);
+		} 
+		catch (DataAccessException e) 
+		{
+			Logger.getLogger(ConseillerServices.class.getName()).log(Level.ERROR, "Erreur lors de l'exécution " +e.getMostSpecificCause(), e);
+		}
+		return null;		
 	}
 }

@@ -2,6 +2,7 @@ package com.objis.spring.demodatabase.dao;
 
 import java.util.List;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,6 @@ public interface IConseillerDao extends JpaRepository<Conseiller, String>
 	 *         object Conseiller linked to the login given in parameter.
 	 * @throws fr.gtm.formation.proxibanque.dao.exceptions.DaoException
 	 */
-	public Conseiller findByLogin(String login);
+	public Conseiller findByLogin(String login) throws EmptyResultDataAccessException;
 	//public List<Compte> findAllBylisteClients_listeComptes();
 }
