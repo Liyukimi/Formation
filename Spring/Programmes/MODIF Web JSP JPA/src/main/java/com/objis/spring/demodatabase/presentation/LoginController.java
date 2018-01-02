@@ -29,8 +29,12 @@ public class LoginController {
 	private IClientServices clientServices;
 
 	@RequestMapping("/")
-	public String login(Model model) {
-		return "login";
+	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
+		if (request.getSession().isNew() == false) {
+			return "index";
+		} else {
+			return "login";
+		}
 	}
 
 	@RequestMapping(value = "/ConnexionConseiller", method = RequestMethod.POST)
@@ -52,17 +56,17 @@ public class LoginController {
 		if (conseillerServices.conseillerConnection(conseiller) == true) {
 			conseiller = conseillerServices.getConseillerByLogin(loginServ);
 			if (conseiller == null) {
-				model.addAttribute("error", "Aucun conseiller ayant pour login " + loginServ);
+				model.addAttribute("errorLogin", "Aucun conseiller ayant pour login " + loginServ);
 				return new ModelAndView("login");
 			} else {
 				model.addAttribute("conseiller", conseiller);
 				Collection<Client> listeClients = clientServices.getClientsByConseiller(conseiller.getLogin());
 				Logger.getLogger(LoginController.class).warn("La liste est : " + listeClients);
 				model.addAttribute("listeClients", listeClients);
+				return new ModelAndView("index", "conseiller", conseiller);
 			}
-			return new ModelAndView("index");
 		} else {
-			model.addAttribute("error", "Les informations de connexion fournies ne sont pas valides.");
+			model.addAttribute("errorLogin", "Les informations de connexion fournies ne sont pas valides.");
 			return new ModelAndView("login");
 		}
 	}

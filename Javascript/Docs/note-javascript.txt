@@ -1,5 +1,21 @@
+****************************************************
+ANGULAR 
+****************************************************
+se base sur typescript = javascript typé (TSC compilateur pour passer en javascript)
+
+injection de services existant
+two way binding
+environnement de test
+génération de squelette de projet
+****************************************************
+
+****************************************************
+JAVASCRIPT
+****************************************************
 java = langage compilé
 javascript = langage interprêté
+
+javascript > syntaxe > type > DOM > Event
 
 Javascript s'exécute côté client (dans le navigateur, exception faite de Node.js) à la différence de Java qui est côté serveur
 
@@ -7,10 +23,14 @@ Le navigateur lit les pages de manière séquentielles selon les infos dont ont 
 	- dans la balise <head>
 	- dans le footer
 	
-1- DOM spécification qui permet de manipuler un arbre pour modifier la structure de la page
+1- DOM (document object model représentation mémoire de la page HTML) spécification qui permet de manipuler un arbre pour modifier la structure de la page
 2- EVENT identifier un type d'évenement (click, double-click, mouse-hover...)
 3- Gestionnaire d'énvenement : brancher l'event et exécuter du code en conséquence
 
+
+****************************************************
+TUTO OC
+****************************************************
 Interagir avec l'utilisateur
 var userName = prompt('Entrez votre prénom :');
 alert(userName); // Affiche le prénom entré par l'utilisateur
