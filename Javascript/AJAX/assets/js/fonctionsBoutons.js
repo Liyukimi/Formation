@@ -18,4 +18,4 @@ function effaceSupp()
 }
 
 // V7 : Test de la variable globale du fichier tp.js (doit être importé avant dans le html sinon message n'est pas défini)
-alert("Test autre fichier message = " + message);
+//alert("Test autre fichier message = " + message);

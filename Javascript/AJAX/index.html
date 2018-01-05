@@ -36,23 +36,7 @@
 				<a class="navbar-brand" href="index.jsp"><i class="fa fa-fw fa-bank"></i>	PROXIBANQUE</a>
 			</div>
 			<!-- Top Menu Items -->
-			<ul class="nav navbar-right top-nav">
-				<c:if test = "${!empty listeClients}">
-					<li class="dropdown">                    
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="fa fa-fw fa-arrows-v"></i> Mes clients <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							<c:forEach items="${listeClients}" var="client" >
-								<li>
-									<a href="ClientSelect?idClientSelect=${client.idClient}">
-										<option value="${client.idClient}"></option>
-									</a>
-								</li>						
-							</c:forEach>								
-						</ul>							
-					</li>					
-				</c:if>
+			<ul class="nav navbar-right top-nav">							
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<i class="fa fa-user"></i> <b class="caret"></b>
@@ -170,6 +154,7 @@
 		
 		<div class="row">
 			<div class="col-lg-12"> <!--id ="AffichageClients">-->
+				<h3>Tableau avec JSON et objets depuis le .js</h3>
 				<table class="table table-striped">						
 					<thead>
 						<tr>
@@ -185,8 +170,36 @@
 		</div>
 		<!-- /.row -->
 		
+		<div class="row">
+			<div class="col-lg-12"> <!--id ="AffichageClients">-->
+				<h3>Tableau avec AJAX et JSON externe</h3>
+				<button id="afficherListe" type=submit value="Ok" class="btn btn-primary">Afficher la liste</button>	  				
+				<table class="table table-striped">						
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+						</tr>
+					</thead> 
+					<tbody id ="ListeAJAX">							
+												
+					</tbody>				
+				</table>	
+			</div>
+		</div>		
+		<!-- /.row -->
 		
-				<!------------------------------ FIN CONTENU PRINCIPAL ------------------------------>
+		<div class="row">
+			<div class="col-lg-12">
+				<h3>Affichage dynamique du tableau avec AJAX et JSON externe</h3>
+				<button id="afficherListeDynamique" type=submit value="Ok" class="btn btn-primary">Afficher la liste</button>	  				
+				<div id ="AffichageDynamique"></div>
+			</div>
+		</div>		
+		<!-- /.row -->
+		
+		
+			<!------------------------------ FIN CONTENU PRINCIPAL ------------------------------>
 			</div>
 			<!-- /.container-fluid -->
 		</div>

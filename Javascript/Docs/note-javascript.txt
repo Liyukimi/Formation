@@ -1,5 +1,5 @@
 ****************************************************
-ANGULAR 
+**		ANGULAR 
 ****************************************************
 se base sur typescript = javascript typé (TSC compilateur pour passer en javascript)
 
@@ -10,7 +10,7 @@ génération de squelette de projet
 ****************************************************
 
 ****************************************************
-JAVASCRIPT
+**		JAVASCRIPT
 ****************************************************
 java = langage compilé
 javascript = langage interprêté
@@ -27,9 +27,20 @@ Le navigateur lit les pages de manière séquentielles selon les infos dont ont 
 2- EVENT identifier un type d'évenement (click, double-click, mouse-hover...)
 3- Gestionnaire d'énvenement : brancher l'event et exécuter du code en conséquence
 
-
+*****************************************
+**		TP
+*****************************************
+Différence entre =, == et ===
+	= 	affectation
+	==	comparaison mais avec conversion au préalable (conversion de type)
+	===	comparaison de valeur ET de type
+	
+	Exemple:
+	1 == "1" 	>>> true	
+	1 === "1"	>>> false	
+	
 ****************************************************
-TUTO OC
+**		TUTO OC
 ****************************************************
 Interagir avec l'utilisateur
 var userName = prompt('Entrez votre prénom :');
@@ -52,3 +63,465 @@ window.onload = function()
 window > objet implicite
 onload > event
 = function > branchement : associe une fonction
+
+****************************************************
+**		AJAX
+****************************************************
+L'AJAX : ensemble de technologies visant à effectuer des transferts de données
+Asynchronous Javascript and XML
+rapides mises à jour du contenu d'une page Web, pas de rechargement visible par l'utilisateur
+DOM + HTML + CSS + JavaScript + format de données
+
+Format de données	
+	- Le format texte
+	- Le HTML
+	- XML, acronyme de eXtensible Markup Language (structurer des données avec des balises personnalisées)
+	- JSON, acronyme de JavaScript Object Notation
+
+XMLHttpRequest Object : permet de récupérer des données via une requête Http
+Angular/JQuery : framwork qui permettent de s'abstraire de tout ce qui est config/navigateur
+
+****************************************************
+**		SERVICES FRAMEWORK JS
+****************************************************
+autre framework : ext js 
+
+*********** www.jhipster.tech *********************
+
+SPA : Single Page Application
+jquery = librairie /angular = framework (j/a)
+j a - gestion des différents navigateurs (DOM, Event, ...)
+j a - gestion DOM
+j a - gestion Event
+j a - animations
+j a - ajax
+  a	- modules
+j a - I18N : internationalisation
+  a	- architecture, squelette
+  a	- tests
+  a - déploiement (fichier min.js)
+  a	- Templates
+j a	- responsive
+j a - charts
+  a	- injection d'un service pour récup les flux JSON
+
+  
+****************************************************
+**		ANGULAR
+****************************************************
+@NgModule
+classe annotée avec ngmodule = un modules
+Découpé en 3 parties :
+	- imports
+	- config avec le @NgModule
+	- code
+  
+@Component
+	Config avec des metadata :
+	- selector : le nom de la balise
+	- template url : le contenu à insérer dans la balise
+	- style urls : le style du contenu
+	- providers : injection de service 
+
+Metadata : clé/valeur pour la configuration
+
+Template = un bout d'écran, une vue avec derrière un component pour la gestion des données, event etc
+
+Binding
+	- Interpolation {{ value }} 				>> dès que la propriété du compenent/classe change, la valeur affichée sur l'écran est modifiée
+	- property binding [property] = "value"		>> même chose mais avec une notation différente
+	- event binding (event) = "event handler"	>> associe à un event une fonction du component
+	- 2 way data binding [{ngModel}]			>> interpolation + event binding
+	
+Angular CLI : tour of heroes
+	- ng new angular-tour-of-heroes	: générer un squelette de projet nommé "angular-tour-of-heroes"
+	- cd angular-tour-of-heroes		: naviguer dans le projet
+	- ng serve --open				: ouvrir le projet dans un navigateur (serveur sur port 4200)
+	- ng generate component heroes	: générer un nouveau composant nommé "heroes"
+										le dossier suivant est créé src/app/heroes/ et 3 fichiers de HeroesComponent créés :
+										- heroes.compenent.ts
+										- heroes.compenent.css
+										- heroes.compenent.html
+	Exemple de compenent avec heroes.compenent.ts
+	//You always import the Component symbol from the Angular core library and annotate the component class with @Component.
+	import { Component, OnInit } from '@angular/core';
+
+	//@Component is a decorator function that specifies the Angular metadata for the component.
+	@Component({
+	  //The CSS element selector, 'app-heroes', matches the name of the HTML element that identifies this component within a parent component's template.
+	  selector: 'app-heroes',                 //the component's CSS element selector
+	  templateUrl: './heroes.component.html', //the location of the component's template file
+	  styleUrls: ['./heroes.component.css']   //the location of the component's private CSS styles
+	})
+
+	//Always export the component class so you can import it elsewhere ... like in the AppModule.
+	export class HeroesComponent implements OnInit {
+
+	  constructor() { }
+
+	  //The ngOnInit is a lifecycle hook Angular calls ngOnInit shortly after creating a component.
+	  //It's a good place to put initialization logic.
+	  ngOnInit() {
+	  }
+	}
+	
+Les pipes pour afficher un attribut avec un style défini (uppercase, date format, etc)
+https://angular.io/guide/pipes
+
+***************************************************
+** Two-way data binding
+***************************************************
+Pour effectuer un two-way data binding il faut spécifier [{ngModel}], exemple <input [(ngModel)]="hero.name" placeholder="name">
+ngModel est une directive Angular non présente par défaut, il faut importer FormsModule pour que celui-ci soit reconnu
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+Il faut l'importer dans la classe AppModule annotée par @NgModule
+Le décorateur @NgModule annote la classe AppModule de niveau supérieur.
+Angular CLI a généré une classe AppModule dans src/app/app.module.ts lors de la création du projet
+
+***************************************************
+**	Affichage avec *ngFor
+***************************************************
+*ngFor est la directive du répéteur d'Angular. 
+Il répète l'élément hôte pour chaque élément d'une liste.
+
+Exemple : 
+<li *ngFor="let hero of heroes">
+	<span class="badge">{{hero.id}}</span> {{hero.name}}
+</li>
+	- <li> 		est l'élément hôte
+	- 'heroes'	est la liste de la classe HeroesComponent
+	- 'hero' 		détient l'objet héros actuel pour chaque itération à travers la liste
+
+***************************************************
+**	click event binding, dans le html
+***************************************************
+https://angular.io/guide/template-syntax#event-binding
+
+<li *ngFor="let hero of heroes" (click)="onSelect(hero)">
+Les parenthèses autour de click indiquent à Angular d'écouter l'événement click de l'élément <li>. 
+Lorsque l'utilisateur clique sur <li>, Angular exécute l'expression onSelect(hero).	
+onSelect() est une méthode de HeroesComponent. 
+Angular l'appelle avec l'objet 'hero' affiché dans le <li> cliqué, le même héros défini précédemment dans l'expression *ngFor.
+
+***************************************************
+**	click event handler, dans le ts
+***************************************************	
+Ajoutez la propriété du composant selectedHero mais ne l'attribuez pas. 
+Il n'y a pas de héros sélectionné lorsque l'application démarre.
+La méthode onSelect () assigne le héros cliqué du modèle à l'élément selectedHero
+
+selectedHero: Hero;
+onSelect(hero: Hero): void {
+  this.selectedHero = hero;
+}
+
+***************************************************
+**	Angular class binding
+***************************************************	
+La liaison de classe Angular facilite l'ajout et la suppression conditionnelles d'une classe CSS. 
+Ajoutez juste [class.some-css-class] = "some-condition" à l'élément que vous voulez styler.
+Exemple :
+	<li *ngFor="let hero of heroes"
+	  [class.selected]="hero === selectedHero"
+	  (click)="onSelect(hero)">
+	  <span class="badge">{{hero.id}}</span> {{hero.name}}
+	</li>
+Lorsque le héros de la ligne en cours est le même que le Héros sélectionné, Angular ajoute la classe CSS sélectionnée. 
+Lorsque les deux héros sont différents, Angular supprime la classe.
+
+***************************************************
+**	Angular property binding
+***************************************************	
+https://angular.io/guide/template-syntax#inputs-outputs
+
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+C'est une liaison de données à sens unique de la propriété selectedHero du composant HeroComponent à la propriété hero de l'élément cible, 
+qui correspond à la propriété hero du composant HeroDetailComponent.
+
+Maintenant, lorsque l'utilisateur clique sur un héros dans la liste, le selectedHero change. 
+Lorsque le paramètre selectedHero est modifié, la liaison de propriété met à jour hero et le composant HeroDetailComponent affiche le nouveau héros.
+
+***************************************************
+**	Services
+***************************************************	
+HeroesComponent est en train d'obtenir et d'afficher des données fictives/figées.
+Après le refactoring dans ce tutoriel, HeroesComponent sera allégé et axé sur la prise en charge de la vue. 
+Il sera également plus facile de tester un appareil avec un service fictif.
+
+Pourquoi les services?
+Les composants ne doivent pas extraire ou enregistrer des données directement et ils ne devraient certainement pas présenter sciemment de fausses données. 
+Ils devraient se concentrer sur la présentation des données et déléguer l'accès aux données à un service.
+
+Dans ce tutoriel, vous allez créer un HeroService que toutes les classes d'application peuvent utiliser pour obtenir des héros. 
+Au lieu de créer ce service avec new, vous comptez sur l'injection de dépendance Angular pour l'injecter dans le constructeur HeroesComponent.
+https://angular.io/guide/dependency-injection
+
+Les services sont un excellent moyen de partager des informations entre des classes qui ne se connaissent pas. 
+Vous allez créer un MessageService et l'injecter à deux endroits:
+	- dans HeroService qui utilise le service pour envoyer un message.
+	- dans MessagesComponent qui affiche ce message.
+
+ng generate service hero
+La commande génère une classe HeroService squelette dans src/app/hero.service.ts 
+La classe HeroService devrait ressembler à celle ci-dessous.
+
+***************************************************
+** Services @Injectable()
+***************************************************
+Notez que le nouveau service importe le symbole Angular Injectable et annote la classe avec le décorateur @Injectable().
+
+Le décorateur @Injectable() indique à Angular que ce service pourrait lui-même avoir injecté des dépendances. 
+Il n'a pas de dépendances maintenant mais il le sera bientôt. 
+Que ce soit le cas ou non, il est bon de garder le décorateur.
+
+***************************************************
+** Fournir le HeroService
+***************************************************
+https://angular.io/guide/ngmodule#providers
+Vous devez fournir le HeroService dans le système d'injection de dépendances avant que Angular puisse l'injecter dans HeroesComponent.
+Il existe plusieurs manières de fournir HeroService: dans HeroesComponent, dans AppComponent, dans AppModule. 
+Chaque option a des avantages et des inconvénients.
+Ce tutoriel choisit de le fournir dans l'AppModule.
+C'est un choix si populaire que vous auriez pu dire à la CLI de le fournir automatiquement en ajoutant --module = app.
+ng generate service hero --module=app
+
+Pour le fournir vous-même :
+Dans la classe AppModule, importez le HeroService et ajoutez-la au tableau @NgModule.providers.
+
+providers: [HeroService, MessageService],
+Le tableau des providers dit à Angular de créer une seule instance partagée de HeroService et de l'injecter dans n'importe quelle classe qui le demande.
+Le HeroService est maintenant prêt à se connecter au composant HeroesComponent.
+
+***************************************************
+** Injecter le HeroService
+***************************************************
+Ajoutez un paramètre heroService privé de type HeroService au constructeur.
+	constructor(private heroService: HeroService) { }
+Le paramètre définit simultanément une propriété heroService privée et l'identifie comme site d'injection HeroService.
+Lorsque Angular crée un HeroesComponent, le système Injection de dépendances définit le paramètre heroService sur l'instance singleton de HeroService.
+Ajout d'une fonction get 
+getHeroes(): void {
+  this.heroes = this.heroService.getHeroes();
+}
+
+***************************************************
+** Observable HeroService
+***************************************************
+Observable est l'une des classes clés de la bibliothèque RxJS.
+
+Dans un didacticiel ultérieur sur HTTP, vous apprendrez que les méthodes HttpClient d'Angular renvoient des Observables RxJS. 
+Dans ce tutoriel, vous allez simuler l'obtention de données à partir du serveur avec la fonction RxJS of().
+
+importer les symboles Observable et of de RxJS dans le service :
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+
+Dans le service
+//of (HEROES) renvoie un Observable <Hero []> qui émet une seule valeur, le tableau des faux héros.
+getHeroes(): Observable<Hero[]> {
+return of(HEROES);
+}
+
+Dans le component où le service est injecté
+//Attend que l'Observable émette le tableau des héros. 
+//Subscribe passe ensuite le tableau émis au callback, qui définit la propriété heroes du composant.
+//Cette approche asynchrone fonctionne lorsque HeroService demande des héros au serveur.
+getHeroes(): void {
+this.heroService.getHeroes()
+	.subscribe(heroes => this.heroes = heroes);
+}
+
+***************************************************
+** Afficher les messages
+***************************************************
+Dans cette section, vous allez
+	- ajoutez un composant MessagesComponent qui affiche les messages de l'application en bas de l'écran.
+	- créer un MessageService injectable à l'échelle de l'application pour l'envoi des messages à afficher
+	- injecter MessageService dans le HeroService
+	- afficher un message lorsque HeroService récupère les héros avec succès.
+
+Créer le component messages
+	ng generate component messages
+Ajouter <app-messages></app-messages> dans app-component.html	
+Créer le service messages
+	ng generate service message --module=app
+
+***************************************************
+** Routing
+***************************************************	
+Ajouter le AppRoutingModule
+
+Une best practice d'Angular consiste à charger et à configurer le routeur dans un module de niveau supérieur distinct, 
+dédié au routage et importé par l'AppModule racine.
+
+Par convention, le nom de classe du module est AppRoutingModule et il appartient à l'app-routing.module.ts dans le dossier src/app.
+ng generate module app-routing --flat --module=app
+--flat place le fichier dans src/app au lieu de son propre dossier.
+--module = app demande à la CLI de l'enregistrer dans le tableau imports de l'AppModule
+
+En règle générale, vous ne déclarez pas les composants dans un module de routage, 
+vous pouvez donc supprimer le tableau @NgModule.declarations et supprimer également les références CommonModule.
+
+Vous allez configurer le routeur avec Routes dans RouterModule, donc importez ces deux symboles depuis la bibliothèque @angular/router.
+Ajoutez un tableau @NgModule.exports avec RouterModule. 
+L'exportation de RouterModule permet d'utiliser les directives de routeur dans les composants AppModule qui en auront besoin.
+import { NgModule }             from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+@NgModule({
+  exports: [ RouterModule ]
+})
+export class AppRoutingModule {}
+
+
+Ajouter des itinéraires
+***************************************************	
+Les itinéraires indiquent au routeur la vue à afficher lorsqu'un utilisateur clique sur un lien ou colle une URL dans la barre d'adresse du navigateur.
+Une route angulaire typique a deux propriétés:
+	1) path: une chaîne qui correspond à l'URL dans la barre d'adresse du navigateur.
+	2) composant: composant que le routeur doit créer lors de la navigation vers cet itinéraire.
+Vous arriverez vers le HeroesComponent lorsque l'URL est quelque chose comme localhost:4200/heroes.
+
+Importez le composant HeroesComponent pour pouvoir le référencer dans un itinéraire. 
+Définissez ensuite un tableau de routes avec une route unique vers ce composant.
+
+
+RouterModule.forRoot()
+***************************************************	
+Vous devez d'abord initialiser le routeur et le démarrer en écoutant les changements d'emplacement du navigateur.
+Ajoutez RouterModule au tableau @ NgModule.imports et configurez-le avec les routes en une étape en appelant RouterModule.forRoot() dans le tableau imports:
+	imports: [ RouterModule.forRoot(routes) ],
+La méthode s'appelle forRoot() car vous configurez le routeur au niveau racine de l'application. 
+La méthode forRoot() fournit les fournisseurs de services et les directives nécessaires au routage et 
+effectue la navigation initiale en fonction de l'URL du navigateur actuel.
+
+Ajouter RouterOutlet
+***************************************************	
+RouterOutlet est l'une des directives de routeur qui sont devenues disponibles pour AppComponent 
+car AppModule importe AppRoutingModule qui a exporté RouterModule.	
+<div>
+  <!-- Le <router-outlet> indique au routeur où afficher les vues routées. -->
+  <router-outlet></router-outlet>
+  <app-messages></app-messages>
+</div>
+
+
+Ajouter un lien de navigation (routerLink)
+***************************************************	
+Les utilisateurs ne doivent pas avoir à coller une URL d'itinéraire dans la barre d'adresse. 
+Ils devraient être en mesure de cliquer sur un lien pour naviguer.
+
+Ajoutez un élément <nav> et, à l'intérieur, un élément d'ancrage qui, lorsqu'il est cliqué, déclenche la navigation vers HeroesComponent. 
+Le modèle AppComponent révisé ressemble à ceci:
+<nav>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+
+***************************************************	
+** Activer les services HTTP
+***************************************************	
+HttpClient est le mécanisme d'Angular pour communiquer avec un serveur distant via HTTP.
+
+Pour rendre HttpClient disponible partout dans l'application :
+	- ouvrez la racine AppModule,
+	- importer le symbole HttpClientModule de @angular/common/http,
+	- ajoutez-le au tableau @NgModule.imports.
+
+Les méthodes Http renvoient une valeur
+Toutes les méthodes HttpClient retournent un RxJS Observable de quelque chose.
+HTTP est un protocole de requête / réponse. Vous faites une requête, elle renvoie une seule réponse.
+
+En général, un Observable peut renvoyer plusieurs valeurs au fil du temps. 
+Un Observable de HttpClient émet toujours une valeur unique, puis se termine, pour ne plus jamais émettre.
+
+Cet appel HttpClient.get particulier renvoie un Observable <Hero []>, littéralement "un observable des tableaux de héros". 
+En pratique, il ne retournera qu'un seul tableau de héros.
+
+HttpClient.get renvoie les données de réponse
+HttpClient.get renvoie le corps de la réponse en tant qu'objet JSON non typé par défaut. 
+Appliquer un spécificateur de type, <Hero []>, donne un objet résultat typé.
+
+La forme des données JSON est déterminée par l'API de données du serveur. 
+L'API de données Tour of Heroes renvoie les données du héros sous la forme d'un tableau.
+
+D'autres API peuvent enterrer les données que vous souhaitez dans un objet. 
+Vous devrez peut-être extraire ces données en traitant le résultat Observable avec l'opérateur de carte RxJS.
+Bien que cela ne soit pas abordé ici, il existe un exemple de mappage dans la méthode getHeroNo404 () incluse dans l'exemple de code source.
+
+La gestion des erreurs
+***************************************************	
+Les choses tournent mal, surtout lorsque vous recevez des données d'un serveur distant. 
+La méthode HeroService.getHeroes() doit détecter les erreurs et faire quelque chose de'approprié.
+
+Pour détecter les erreurs, vous "canaliserez" le résultat observable de http.get() via un opérateur RxJS catchError().
+Importez le symbole catchError à partir de rxjs/operators, ainsi que d'autres opérateurs dont vous aurez besoin plus tard.
+	import { catchError, map, tap } from 'rxjs/operators';
+Étendez maintenant le résultat observable avec la méthode .pipe () et donnez-lui un opérateur catchError ().
+	getHeroes (): Observable<Hero[]> {
+	  return this.http.get<Hero[]>(this.heroesUrl)
+		.pipe(
+		  catchError(this.handleError('getHeroes', []))
+		);
+	}
+catchError() intercepte un Observable qui a échoué. 
+Il passe l'erreur un gestionnaire d'erreur qui peut faire ce qu'il veut avec l'erreur.
+
+La méthode handleError() suivante signale l'erreur et renvoie un résultat inoffensif pour que l'application continue de fonctionner.
+
+Le errorHandler() suivant sera partagé par de nombreuses méthodes HeroService afin qu'il soit généralisé pour répondre à leurs différents besoins.
+Au lieu de gérer l'erreur directement, elle renvoie une fonction de gestionnaire d'erreurs à catchError 
+qu'elle a configurée avec le nom de l'opération qui a échoué et une valeur de retour sûre.
+	/**
+	 * Handle Http operation that failed.
+	 * Let the app continue.
+	 * @param operation - name of the operation that failed
+	 * @param result - optional value to return as the observable result
+	 */
+	 private handleError<T> (operation = 'operation', result?: T) {
+		return (error: any): Observable<T> => {
+
+		  // TODO: send the error to remote logging infrastructure
+		  console.error(error); // log to console instead
+
+		  // TODO: better job of transforming error for user consumption
+		  this.log(`${operation} failed: ${error.message}`);
+
+		  // Let the app keep running by returning an empty result.
+		  return of(result as T);
+		};
+	  }	
+Après avoir signalé l'erreur à la console, le gestionnaire construit un message convivial et renvoie une valeur 
+sûre à l'application afin qu'elle puisse continuer à fonctionner.
+Parce que chaque méthode de service renvoie un type de résultat Observable différent, 
+errorHandler() prend un paramètre de type afin qu'il puisse renvoyer la valeur sûre comme le type attendu par l'application.
+
+Puiser dans l'observable
+***************************************************	
+Les méthodes HeroService vont puiser dans le flux de valeurs observables et envoyer un message (via log ()) à la zone de message au bas de la page.
+Ils vont le faire avec l'opérateur RxJS, qui regarde les valeurs observables, fait quelque chose avec ces valeurs, et les transmet. 
+Le rappel de touche ne touche pas les valeurs elles-mêmes.
+
+Voici la version finale de getHeroes avec le tap qui enregistre l'opération.
+/** GET heroes from the server */
+getHeroes (): Observable<Hero[]> {
+  return this.http.get<Hero[]>(this.heroesUrl)
+    .pipe(
+      tap(heroes => this.log(`fetched heroes`)),
+      catchError(this.handleError('getHeroes', []))
+    );
+}
+
+***************************************************	
+** Mettre à jour les héros
+***************************************************	
+Modification du nom d'un héros dans la vue détaillée du héros. 
+Au fur et à mesure que vous tapez, le nom du héros met à jour l'en-tête en haut de la page. 
+Mais lorsque vous cliquez sur le bouton "revenir en arrière", les modifications sont perdues.
+
+Si vous souhaitez que les modifications persistent, vous devez les réécrire sur le serveur.
+
+À la fin du modèle de détail de héros, ajoutez un bouton de sauvegarde avec une liaison d'événement de clic qui appelle 
+une nouvelle méthode de composant nommée save().
+Ajoutez la méthode save() suivante, qui conserve les modifications de nom de héros en utilisant 
+la méthode updateHero() du service hero, puis revient à la vue précédente.
+
