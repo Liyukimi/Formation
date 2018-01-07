@@ -1,0 +1,9 @@
+fr\gtm\proxibanque\domaine\Conseiller.class
+fr\gtm\proxibanque\domaine\Virement.class
+fr\gtm\proxibanque\SpringBootWebApplication.class
+fr\gtm\proxibanque\dao\IVirementDao.class
+fr\gtm\proxibanque\dao\ICompteDao.class
+fr\gtm\proxibanque\dao\IConseillerDao.class
+fr\gtm\proxibanque\dao\IClientDao.class
+fr\gtm\proxibanque\domaine\Client.class
+fr\gtm\proxibanque\domaine\Compte.class
